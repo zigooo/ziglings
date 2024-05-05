@@ -8,7 +8,7 @@ const mem = std.mem;
 
 const Allocator = std.mem.Allocator;
 const Child = std.process.Child;
-const Build = std.build;
+const Build = std.Build;
 const FileSource = std.Build.FileSource;
 const Reader = fs.File.Reader;
 const RunStep = std.Build.RunStep;
@@ -152,7 +152,7 @@ const CheckNamedStep = struct {
 
     fn make(step: *Step, _: *std.Progress.Node) !void {
         const b = step.owner;
-        const self = @fieldParentPtr(CheckNamedStep, "step", step);
+        const self:CheckNamedStep = @fieldParentPtr( "step", step);
         const ex = self.exercise;
 
         const stderr_file = try fs.cwd().openFile(
@@ -204,7 +204,7 @@ const CheckStep = struct {
 
     fn make(step: *Step, _: *std.Progress.Node) !void {
         const b = step.owner;
-        const self = @fieldParentPtr(CheckStep, "step", step);
+        const self:CheckStep = @fieldParentPtr("step", step);
         const exercises = self.exercises;
 
         const stderr_file = try fs.cwd().openFile(
@@ -327,7 +327,7 @@ const FailStep = struct {
 
     fn make(step: *Step, _: *std.Progress.Node) !void {
         const b = step.owner;
-        const self = @fieldParentPtr(FailStep, "step", step);
+        const self:FailStep = @fieldParentPtr( "step", step);
 
         try step.result_error_msgs.append(b.allocator, self.error_msg);
         return error.MakeFailed;
@@ -370,7 +370,7 @@ const HealStep = struct {
 
     fn make(step: *Step, _: *std.Progress.Node) !void {
         const b = step.owner;
-        const self = @fieldParentPtr(HealStep, "step", step);
+        const self:HealStep = @fieldParentPtr("step", step);
 
         return heal(b.allocator, self.exercises, self.work_path);
     }

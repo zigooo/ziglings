@@ -11,10 +11,11 @@
 // Please complete the import below:
 //
 
-??? = @import("std");
+
+const debug= @import("std").debug;
 
 pub fn main() void {
-    std.debug.print("Standard Library.\n", .{});
+    debug.print("Standard Library.\n", .{});
 }
 
 // For the curious: Imports must be declared as constants because they
