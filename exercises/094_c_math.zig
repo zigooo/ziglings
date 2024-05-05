@@ -18,8 +18,7 @@
 const std = @import("std");
 
 const c = @cImport({
-    // What do wee need here?
-    ???
+    @cInclude("stdio.h");
 });
 
 pub fn main() !void {

@@ -20,9 +20,13 @@ var counter: u32 = 0;
 const MyErr = error{ GetFail, IncFail };
 
 pub fn main() void {
+    errdefer {
+        std.debug.print("Cleaning up...\n", .{});
+    }
+
     // We simply quit the entire program if we fail to get a number:
-    var a: u32 = makeNumber() catch return;
-    var b: u32 = makeNumber() catch return;
+    const a: u32 = makeNumber() catch return;
+    const b: u32 = makeNumber() catch return;
 
     std.debug.print("Numbers: {}, {}\n", .{ a, b });
 }
@@ -32,7 +36,9 @@ fn makeNumber() MyErr!u32 {
 
     // Please make the "failed" message print ONLY if the makeNumber()
     // function exits with an error:
-    std.debug.print("failed!\n", .{});
+    errdefer {
+        std.debug.print("failed!\n", .{});
+    }
 
     var num = try getNumber(); // <-- This could fail!
 
